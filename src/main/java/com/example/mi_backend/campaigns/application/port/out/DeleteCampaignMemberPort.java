@@ -1,0 +1,5 @@
+package com.example.mi_backend.campaigns.application.port.out;
+
+public interface DeleteCampaignMemberPort {
+    void deleteByCampaignIdAndUserId(Long campaignId, Long userId);
+}
