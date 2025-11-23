@@ -1,6 +1,9 @@
 package com.example.mi_backend.questions.domain.model;
 
 
+import com.example.mi_backend.questions.domain.exception.InvalidOptionException;
+import com.example.mi_backend.questions.domain.exception.InvalidSelectionBoundsException;
+
 import java.util.ArrayList;
 import java.util.List;
 
