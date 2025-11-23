@@ -97,9 +97,10 @@ public class QuestionRepositoryAdapter implements
     public PagedResult<Question> search(QuestionListQuery q) {
         Specification<QuestionEntity> spec = Specification
                 .where(QuestionSpecifications.formId(q.formId()))
-                .and(q.sectionId() == null ? root -> root.get("sectionId").isNull() : QuestionSpecifications.sectionId(q.sectionId()))
+                .and(QuestionSpecifications.sectionId(q.sectionId()))
                 .and(QuestionSpecifications.type(q.type()))
                 .and(QuestionSpecifications.search(q.search()));
+
 
         Pageable pageable = PageRequest.of(q.page(), q.size(), Sort.by(Sort.Direction.ASC, "position"));
         Page<QuestionEntity> page = questions.findAll(spec, pageable);
