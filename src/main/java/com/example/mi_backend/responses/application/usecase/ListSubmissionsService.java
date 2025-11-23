@@ -5,7 +5,11 @@ import com.example.mi_backend.responses.application.dto.ListSubmissionsQuery;
 import com.example.mi_backend.responses.application.port.in.ListSubmissionsUseCase;
 import com.example.mi_backend.responses.application.port.out.SearchSubmissionsPort;
 import com.example.mi_backend.responses.domain.model.Submission;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional(readOnly = true)
 public class ListSubmissionsService implements ListSubmissionsUseCase {
 
     private final SearchSubmissionsPort searchPort;

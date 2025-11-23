@@ -7,10 +7,14 @@ import com.example.mi_backend.responses.application.port.out.SaveSubmissionPort;
 import com.example.mi_backend.responses.domain.model.MatchingAnswer;
 import com.example.mi_backend.responses.domain.model.MatchingPair;
 import com.example.mi_backend.responses.domain.model.Submission;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Transactional
 public class SaveMatchingAnswerService implements SaveMatchingAnswerUseCase {
 
     private final FindSubmissionPort findPort;

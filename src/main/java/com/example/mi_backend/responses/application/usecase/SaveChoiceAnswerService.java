@@ -6,7 +6,11 @@ import com.example.mi_backend.responses.application.port.out.FindSubmissionPort;
 import com.example.mi_backend.responses.application.port.out.SaveSubmissionPort;
 import com.example.mi_backend.responses.domain.model.ChoiceAnswer;
 import com.example.mi_backend.responses.domain.model.Submission;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional
 public class SaveChoiceAnswerService implements SaveChoiceAnswerUseCase {
 
     private final FindSubmissionPort findPort;

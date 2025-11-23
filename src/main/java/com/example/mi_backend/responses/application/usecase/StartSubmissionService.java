@@ -6,9 +6,14 @@ import com.example.mi_backend.responses.application.port.in.StartSubmissionUseCa
 import com.example.mi_backend.responses.application.port.out.*;
 import com.example.mi_backend.responses.domain.model.Submission;
 import com.example.mi_backend.responses.domain.valueobject.Respondent;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Objects;
+
+@Service
+@Transactional
 
 public class StartSubmissionService implements StartSubmissionUseCase {
 

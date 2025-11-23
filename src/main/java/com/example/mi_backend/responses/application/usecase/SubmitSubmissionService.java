@@ -9,11 +9,15 @@ import com.example.mi_backend.responses.domain.exception.InvalidAnswerException;
 import com.example.mi_backend.responses.domain.model.Submission;
 import com.example.mi_backend.responses.domain.service.SubmissionValidator;
 import com.example.mi_backend.responses.domain.valueobject.QuestionSnapshot;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
+@Service
+@Transactional
 public class SubmitSubmissionService implements SubmitSubmissionUseCase {
 
     private final FindSubmissionPort findPort;
@@ -45,7 +49,14 @@ public class SubmitSubmissionService implements SubmitSubmissionUseCase {
         if (p.closeAt() != null && now.isAfter(p.closeAt())) throw new ResponsePolicyViolationException("El formulario ya está cerrado");
 
         Map<Long, QuestionSnapshot> snapshots = snapshotsPort.byFormId(s.getFormId());
-        List<InvalidAnswerException> errors = SubmissionValidator.validate(s, snapshots);
+        var errors = SubmissionValidator.validate(s, snapshots);
+        if (!errors.isEmpty()) {
+            errors.forEach(e -> {
+                System.out.println("[SUBMIT INVALID] qid=" + e.getQuestionId() + " reason=" + e.getMessage());
+            });
+            throw new SubmissionValidationException(errors);
+        }
+
         if (!errors.isEmpty()) throw new SubmissionValidationException(errors);
 
         if (p.limitMode() == LoadFormPoliciesPort.ResponseLimitMode.LIMITED_N) {
